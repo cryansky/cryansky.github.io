@@ -13,7 +13,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      background: radial-gradient(circle at 20% 20%, #1e293b 0%, #0f172a 55%, #060a12 100%);
       color: #f1f5f9;
       min-height: 100vh;
       display: flex;
@@ -21,22 +21,102 @@
       justify-content: center;
       text-align: center;
       padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .glow-1 {
+      width: 380px;
+      height: 380px;
+      background: #38bdf8;
+      top: -120px;
+      left: -120px;
+      animation: drift 12s ease-in-out infinite;
+    }
+
+    .glow-2 {
+      width: 320px;
+      height: 320px;
+      background: #818cf8;
+      bottom: -140px;
+      right: -100px;
+      animation: drift 14s ease-in-out infinite reverse;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(30px, 20px); }
     }
 
     .container {
       max-width: 480px;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #38bdf8;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
     }
 
     .icon {
       font-size: 3.5rem;
       margin-bottom: 1.5rem;
+      animation: bounce 3s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-6px) rotate(3deg); }
     }
 
     h1 {
-      font-size: 2rem;
-      font-weight: 600;
+      font-size: 2.1rem;
+      font-weight: 700;
       margin-bottom: 0.75rem;
       letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #f1f5f9, #cbd5e1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     p {
@@ -48,18 +128,89 @@
 
     .progress-bar {
       width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.1);
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 999px;
       overflow: hidden;
-      margin-bottom: 2rem;
+      margin-bottom: 0.6rem;
+      position: relative;
     }
 
     .progress-fill {
       height: 100%;
-      width: 60%;
+      width: 65%;
       background: linear-gradient(90deg, #38bdf8, #818cf8);
       border-radius: 999px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shimmer 1.8s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .progress-label {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 2rem;
+      text-align: right;
+    }
+
+    .notify {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .notify input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 0.65rem 0.9rem;
+      color: #f1f5f9;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .notify input::placeholder {
+      color: #64748b;
+    }
+
+    .notify input:focus {
+      border-color: #38bdf8;
+    }
+
+    .notify button {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      color: #0f172a;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      padding: 0.65rem 1.1rem;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      white-space: nowrap;
+    }
+
+    .notify button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(56, 189, 248, 0.3);
+    }
+
+    .notify button:active {
+      transform: translateY(0);
     }
 
     .footer {
@@ -75,19 +226,55 @@
     .footer a:hover {
       text-decoration: underline;
     }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .socials a {
+      color: #64748b;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .socials a:hover {
+      color: #38bdf8;
+    }
   </style>
 </head>
 <body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
   <div class="container">
+    <span class="badge"><span class="dot"></span> In progress</span>
     <div class="icon">🚧</div>
     <h1>We're building something new</h1>
-    <p>This page is currently under construction. Please check back soon for updates.</p>
+    <p>This page is currently under construction. We're working hard to bring it to life &mdash; check back soon for updates.</p>
+
     <div class="progress-bar">
       <div class="progress-fill"></div>
     </div>
+    <div class="progress-label">65% complete</div>
+
+    <form class="notify" onsubmit="event.preventDefault(); const btn=this.querySelector('button'); btn.textContent='Subscribed ✓'; btn.disabled=true;">
+      <input type="email" placeholder="you@email.com" required aria-label="Email address" />
+      <button type="submit">Notify me</button>
+    </form>
+
     <div class="footer">
       Questions? <a href="mailto:hello@example.com">Contact us</a>
+      <div class="socials">
+        <a href="#" aria-label="Twitter">Twitter</a>
+        <a href="#" aria-label="GitHub">GitHub</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+      </div>
     </div>
   </div>
 </body>
 </html>
+</content>
