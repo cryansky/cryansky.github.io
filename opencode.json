@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [[
+    "/Users/chrisandopardomuan/Projects/Skyscanner Services/opencode-core-plugins/dist/plugins/server/agent-guardrails/agent-guardrails.js",
+    {
+      "mode": "observe",
+      "debug": true
+    }
+  ]]
+}
