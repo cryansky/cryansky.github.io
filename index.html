@@ -12,9 +12,9 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: "SF Mono", "Fira Code", "JetBrains Mono", Consolas, "Courier New", monospace;
       background: #000000;
-      color: #f1f5f9;
+      color: #33ff33;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -23,6 +23,21 @@
       padding: 2rem;
       position: relative;
       overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 0, 0.03),
+        rgba(0, 255, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      z-index: 2;
     }
 
     .glow {
@@ -36,7 +51,7 @@
     .glow-1 {
       width: 380px;
       height: 380px;
-      background: #38bdf8;
+      background: #00ff41;
       top: -120px;
       left: -120px;
       animation: drift 12s ease-in-out infinite;
@@ -45,7 +60,7 @@
     .glow-2 {
       width: 320px;
       height: 320px;
-      background: #818cf8;
+      background: #00cc33;
       bottom: -140px;
       right: -100px;
       animation: drift 14s ease-in-out infinite reverse;
@@ -59,7 +74,7 @@
     .container {
       max-width: 480px;
       position: relative;
-      z-index: 1;
+      z-index: 3;
       animation: fadeUp 0.8s ease-out;
     }
 
@@ -76,19 +91,21 @@
       font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 999px;
+      color: #00ff41;
+      background: rgba(0, 255, 65, 0.08);
+      border: 1px solid rgba(0, 255, 65, 0.35);
+      border-radius: 4px;
       padding: 0.35rem 0.9rem;
       margin-bottom: 1.5rem;
+      text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
     }
 
     .badge .dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #38bdf8;
+      background: #00ff41;
+      box-shadow: 0 0 6px #00ff41;
       animation: pulse 1.6s ease-in-out infinite;
     }
 
@@ -109,28 +126,38 @@
     }
 
     h1 {
-      font-size: 2.1rem;
+      font-size: 1.9rem;
       font-weight: 700;
       margin-bottom: 0.75rem;
-      letter-spacing: -0.02em;
-      background: linear-gradient(90deg, #f1f5f9, #cbd5e1);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.01em;
+      color: #33ff33;
+      text-shadow: 0 0 10px rgba(51, 255, 51, 0.5), 0 0 2px rgba(51, 255, 51, 0.8);
+    }
+
+    h1::before {
+      content: "> ";
+      color: #00cc33;
+    }
+
+    h1::after {
+      content: "_";
+      animation: pulse 1s step-end infinite;
     }
 
     p {
-      font-size: 1.05rem;
-      color: #94a3b8;
+      font-size: 1rem;
+      color: #4ade80;
       line-height: 1.6;
       margin-bottom: 2rem;
+      opacity: 0.85;
     }
 
     .progress-bar {
       width: 100%;
       height: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
+      background: rgba(0, 255, 65, 0.08);
+      border: 1px solid rgba(0, 255, 65, 0.2);
+      border-radius: 2px;
       overflow: hidden;
       margin-bottom: 0.6rem;
       position: relative;
@@ -139,8 +166,9 @@
     .progress-fill {
       height: 100%;
       width: 65%;
-      background: linear-gradient(90deg, #38bdf8, #818cf8);
-      border-radius: 999px;
+      background: #00ff41;
+      box-shadow: 0 0 10px #00ff41;
+      border-radius: 2px;
       position: relative;
       overflow: hidden;
     }
@@ -160,7 +188,7 @@
 
     .progress-label {
       font-size: 0.8rem;
-      color: #64748b;
+      color: #16a34a;
       margin-bottom: 2rem;
       text-align: right;
     }
@@ -173,31 +201,34 @@
 
     .notify input {
       flex: 1;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
+      background: rgba(0, 255, 65, 0.04);
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      border-radius: 4px;
       padding: 0.65rem 0.9rem;
-      color: #f1f5f9;
+      color: #33ff33;
+      font-family: inherit;
       font-size: 0.9rem;
       outline: none;
       transition: border-color 0.2s;
     }
 
     .notify input::placeholder {
-      color: #64748b;
+      color: #166534;
     }
 
     .notify input:focus {
-      border-color: #38bdf8;
+      border-color: #00ff41;
+      box-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
     }
 
     .notify button {
-      background: linear-gradient(90deg, #38bdf8, #818cf8);
-      color: #0f172a;
-      font-weight: 600;
+      background: #00ff41;
+      color: #000000;
+      font-weight: 700;
+      font-family: inherit;
       font-size: 0.9rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 4px;
       padding: 0.65rem 1.1rem;
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.15s;
@@ -206,7 +237,7 @@
 
     .notify button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(56, 189, 248, 0.3);
+      box-shadow: 0 0 16px rgba(0, 255, 65, 0.6);
     }
 
     .notify button:active {
@@ -215,11 +246,11 @@
 
     .footer {
       font-size: 0.85rem;
-      color: #64748b;
+      color: #16a34a;
     }
 
     .footer a {
-      color: #38bdf8;
+      color: #00ff41;
       text-decoration: none;
     }
 
@@ -235,14 +266,14 @@
     }
 
     .socials a {
-      color: #64748b;
+      color: #166534;
       font-size: 0.85rem;
       text-decoration: none;
       transition: color 0.2s;
     }
 
     .socials a:hover {
-      color: #38bdf8;
+      color: #00ff41;
     }
   </style>
 </head>
@@ -251,8 +282,8 @@
   <div class="glow glow-2"></div>
 
   <div class="container">
-    <span class="badge"><span class="dot"></span> In progress</span>
-    <div class="icon">🚧</div>
+    <span class="badge"><span class="dot"></span> access_granted</span>
+    <div class="icon">💻</div>
     <h1>We're building something new</h1>
     <p>This page is currently under construction. We're working hard to bring it to life &mdash; check back soon for updates.</p>
 
